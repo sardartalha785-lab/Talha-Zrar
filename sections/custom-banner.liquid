@@ -1,0 +1,42 @@
+{% schema %}
+{
+  "name": "Custom Banner",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Welcome to Our Store"
+    },
+    {
+      "type": "text",
+      "id": "subheading",
+      "label": "Subheading",
+      "default": "Shop the best products"
+    },
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "Button Text",
+      "default": "Shop Now"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button Link"
+    }
+  ]
+}
+{% endschema %}
+
+<section class="custom-banner">
+  <div class="custom-banner__content">
+    <h1>{{ section.settings.heading }}</h1>
+    <p>{{ section.settings.subheading }}</p>
+    <a href="{{ section.settings.button_link }}" class="custom-btn">
+      {{ section.settings.button_text }}
+    </a>
+  </div>
+</section>
+
+{{ 'custom-banner.css' | asset_url | stylesheet_tag }}
