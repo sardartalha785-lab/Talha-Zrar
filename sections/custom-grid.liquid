@@ -1,20 +1,6 @@
-<div class="custom-product-grid">
-  {% for block in section.blocks %}
-    {% assign product = all_products[block.settings.product] %}
-    {% if product %}
-      <div class="custom-product-item" data-handle="{{ product.handle }}">
-        <div class="circle-thumbnail">
-          <img src="{{ product.featured_image | img_url: '400x' }}" alt="{{ product.title }}">
-        </div>
-        <p>{{ product.title }}</p>
-      </div>
-    {% endif %}
-  {% endfor %}
-</div>
-
 {% schema %}
 {
-  "name": "Custom Product Grid",
+  "name": "Custom Grid",
   "settings": [],
   "blocks": [
     {
@@ -24,16 +10,41 @@
         {
           "type": "product",
           "id": "product",
-          "label": "Choose product"
+          "label": "Select product"
         }
       ]
     }
   ],
-  "max_blocks": 6,
-  "presets": [
-    {
-      "name": "Custom Product Grid"
-    }
-  ]
+  "max_blocks": 6
 }
 {% endschema %}
+
+<section class="custom-grid">
+  <div class="grid-container">
+    {% for block in section.blocks %}
+      {% assign product = all_products[block.settings.product] %}
+      {% if product %}
+        <div class="grid-item" data-handle="{{ product.handle }}">
+          <img src="{{ product.featured_image | img_url: '400x' }}" alt="{{ product.title }}">
+          <h3>{{ product.title }}</h3>
+        </div>
+      {% endif %}
+    {% endfor %}
+  </div>
+
+  <!-- Popup Modal -->
+  <div id="product-popup" class="popup hidden">
+    <div class="popup-content">
+      <span id="popup-close">&times;</span>
+      <img id="popup-image" src="" alt="">
+      <h2 id="popup-title"></h2>
+      <p id="popup-price"></p>
+      <p id="popup-desc"></p>
+      <div id="popup-variants"></div>
+      <button id="popup-add">Add to Cart</button>
+    </div>
+  </div>
+</section>
+
+{{ 'custom-grid.css' | asset_url | stylesheet_tag }}
+{{ 'custom-popup.js' | asset_url | script_tag }}
